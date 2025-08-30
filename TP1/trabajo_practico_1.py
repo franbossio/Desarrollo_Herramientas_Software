@@ -62,7 +62,7 @@ with open('reporte.txt','w',encoding='UTF-8') as reporte:
         except ValueError:
             temperatura_maxima=' No hay registros'
         
-        reporte.write(f'\n{clave}: TMAX:{temperatura_maxima}, TMIN:{temperatura_minima}')
+        reporte.write(f'\n{clave}:\n TMAX:{temperatura_maxima}, TMIN:{temperatura_minima}')
         
     reporte.write('\n------------MAYOR Y MENOR AMPLITUD TERMICA EN UN DIA------------\n')
     
@@ -114,12 +114,10 @@ with open('reporte.txt','w',encoding='UTF-8') as reporte:
                     max_dif = (e1, e2, dia, dif, t1, t2)
                 if dif < min_dif[3]:
                     min_dif = (e1, e2, dia, dif, t1, t2)
+                    
     fecha,fecha2=buscar_fecha(max_dif,min_dif)
  
-    reporte.write(f"Máxima diferencia: {max_dif[0]} (Tmax={max_dif[4]}) vs {max_dif[1]} (Tmin={max_dif[5]}) "
-                    f"= {max_dif[3]}°C el día {fecha[:2]}/{fecha[2:4]}/{fecha[4:]}\n")
-    reporte.write(f"Mínima diferencia: {min_dif[0]} (Tmax={min_dif[4]}) vs {min_dif[1]} (Tmin={min_dif[5]}) "
-                    f"= {min_dif[3]}°C el día {fecha2[:2]}/{fecha2[2:4]}/{fecha2[4:]}\n")
-     
-   
+    reporte.write(f"Máxima diferencia: {max_dif[0]} (Tmax={max_dif[4]}) vs {max_dif[1]} (Tmin={max_dif[5]}) = {max_dif[3]}°C el día {fecha[:2]}/{fecha[2:4]}/{fecha[4:]}\n")
+    reporte.write(f"Mínima diferencia: {min_dif[0]} (Tmax={min_dif[4]}) vs {min_dif[1]} (Tmin={min_dif[5]}) = {min_dif[3]}°C el día {fecha2[:2]}/{fecha2[2:4]}/{fecha2[4:]}\n")
+        
 print('ARCHIVO REPORTE GENERADO CORRECTAMENTE')
