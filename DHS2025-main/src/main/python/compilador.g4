@@ -27,6 +27,7 @@ NOT : '!';
 CONTADOR : '++';
 DESCONTAR : '--';
 RETURN : 'return';
+VOID : 'void';
 
 NUMERO : DIGITO+ ;
 
@@ -69,7 +70,9 @@ instruccion : asignacion
             ;
 
 funcion : tipo ID PA tipo ID listaDeclaracion PC PYC
-          | tipo ID PA tipo ID listaDeclaracion PC LLA instrucciones RETURN ID PYC LLC; 
+          | tipo ID PA tipo ID listaDeclaracion PC LLA instrucciones RETURN ID PYC LLC
+          | VOID ID PA tipo ID listaDeclaracion PC PYC
+          | VOID ID PA tipo ID listaDeclaracion PC bloque; 
 
  
 listaDeclaracion: COMA tipo ID listaDeclaracion
