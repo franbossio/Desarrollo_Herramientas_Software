@@ -1,6 +1,7 @@
 int x = 5;
 int y = 4 + x * 10;
 int a, b, c, d, e;
+int x = 0, y, z = x;
 
 if (a) {
     x = a;
@@ -15,7 +16,5 @@ while (x)
     x = x;
 
 
-for (y = 0; y < 10; ++y) {
-    x = 0;
-}
+
 
