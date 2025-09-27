@@ -1,19 +1,23 @@
+for(x=0;y==25;y++){
+    int x = 5;
+    int y = 4 + x * 10;
+}
+
 int x = 5;
 int y = 4 + x * 10;
 int a, b, c, d, e;
 int x = 0, y, z = x;
 
-if (a) {
+if (a==10) {
     x = a;
 }
 
-while (a) {
+while (a<=20) {
     x = a;
     y = 10;
 }
 
-while (x)
-    x = x;
+
 
 
 
