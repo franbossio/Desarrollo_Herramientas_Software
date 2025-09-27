@@ -26,6 +26,7 @@ OR : '||';
 NOT : '!';
 CONTADOR : '++';
 DESCONTAR : '--';
+RETURN : 'return';
 
 NUMERO : DIGITO+ ;
 
@@ -63,7 +64,24 @@ instruccion : asignacion
             | iwhile
             | bloque
             | ifor
+            | funcion
+            | llamada
             ;
+
+funcion : tipo ID PA tipo ID listaDeclaracion PC PYC
+          | tipo ID PA tipo ID listaDeclaracion PC LLA instrucciones RETURN ID PYC LLC; 
+
+ 
+listaDeclaracion: COMA tipo ID listaDeclaracion
+               | 
+               ;
+
+llamada :  ID PA opal listaLlamada PC PYC
+          | tipo ID ASIG ID PA opal listaLlamada PC PYC;
+
+listaLlamada : COMA opal listaLlamada
+               |
+               ;
 
 bloque : LLA instrucciones LLC ;
 
@@ -91,18 +109,18 @@ tipo : INT
      | DOUBLE
      ;
 
+
 asignacion : ID ASIG opal PYC ;
 
 // Punto de entrada para expresiones lógicas o aritméticas
-opal : logica ;
+opal : expresion op ;
 
-// Operadores lógicos (|| tiene menor precedencia que &&)
-logica : comparacion (OR comparacion)* ;
 
-// Comparaciones (==, !=, <, >, <=, >=)
-comparacion : expresion (opComp expresion)? ;
+op : opComp expresion op
+     |
+     ;
 
-opComp : IGUAL | DISTINTO | MENOR | MAYOR | MENORIGUAL | MAYORIGUAL ;
+opComp : IGUAL | DISTINTO | MENOR | MAYOR | MENORIGUAL | MAYORIGUAL |AND |OR|NOT;
 
 // Expresión aritmética
 expresion : exp ;
@@ -128,7 +146,7 @@ t : MULT factor t
 factor : NUMERO
        | ID
        | PA opal PC
-       | NOT factor    // para !a o !(a < b)
+       | NOT factor    
        ;
 
 contador : CONTADOR ID
