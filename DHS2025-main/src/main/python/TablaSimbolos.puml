@@ -1,5 +1,6 @@
 @startuml TablaSimbolos
 
+
 class TS <<singleton>> {
     - List<Contexto> contexto
     + getTablaSimbolo() : TS
