@@ -33,6 +33,9 @@ NUMERO : DIGITO+ ;
 
 INT : 'int' ;
 DOUBLE : 'double' ;
+STRING : 'string';
+FLOAT: 'float';
+CHAR: 'char';
 IF :    'if' ;
 ELSE :  'else' ;
 FOR :   'for' ;
@@ -43,15 +46,6 @@ ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 WS : [ \n\r\t] -> skip ;
 OTRO : . ;
 
-// s : ID     {print("ID ->" + $ID.text + "<--") }         s
-//   | NUMERO {print("NUMERO ->" + $NUMERO.text + "<--") } s
-//   | OTRO   {print("Otro ->" + $OTRO.text + "<--") }     s
-//   | EOF
-//   ;
-
-// s : PA s PC s
-//   |
-//   ;
 
 programa : instrucciones EOF ;
 
@@ -72,7 +66,7 @@ instruccion : asignacion
 funcion : tipo ID PA tipo ID listaDeclaracion PC PYC
           | tipo ID PA tipo ID listaDeclaracion PC LLA instrucciones RETURN ID PYC LLC
           | VOID ID PA tipo ID listaDeclaracion PC PYC
-          | VOID ID PA tipo ID listaDeclaracion PC bloque; 
+          | VOID ID PA tipo ID listaDeclaracion PC instruccion; 
 
  
 listaDeclaracion: COMA tipo ID listaDeclaracion
@@ -80,7 +74,8 @@ listaDeclaracion: COMA tipo ID listaDeclaracion
                ;
 
 llamada :  ID PA opal listaLlamada PC PYC
-          | tipo ID ASIG ID PA opal listaLlamada PC PYC;
+          | tipo ID ASIG ID PA opal listaLlamada PC PYC
+          | ID ASIG ID PA opal listaLlamada PC PYC;
 
 listaLlamada : COMA opal listaLlamada
                |
@@ -110,12 +105,14 @@ inic : ASIG opal
 
 tipo : INT
      | DOUBLE
+     | FLOAT
+     | CHAR
+     | STRING
      ;
 
 
 asignacion : ID ASIG opal PYC ;
 
-// Punto de entrada para expresiones lógicas o aritméticas
 opal : expresion op ;
 
 
@@ -125,18 +122,16 @@ op : opComp expresion op
 
 opComp : IGUAL | DISTINTO | MENOR | MAYOR | MENORIGUAL | MAYORIGUAL |AND |OR|NOT;
 
-// Expresión aritmética
-expresion : exp ;
 
-// Aritmética (+, -)
-exp : term e ;
+expresion : term e ;
+
 
 e : SUMA term e
   | RESTA term e
   |
   ;
 
-// Aritmética (*, /, %)
+
 term : factor t ;
 
 t : MULT factor t
@@ -145,7 +140,7 @@ t : MULT factor t
   |
   ;
 
-// Factores: números, variables, paréntesis, negación lógica
+
 factor : NUMERO
        | ID
        | PA opal PC

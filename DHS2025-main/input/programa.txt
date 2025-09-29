@@ -1,4 +1,17 @@
+for(x=0;y<=25;y++){
+    int x = 5;
+    int y = 4 + x * 10;
+}
+
+void sumar(double a, double c, int z){
+    x=a;
+    a=10;
+}
+
+void sujar(int a,double b);
+
 int a=sumar(a,b);
+sumar(a,b);
 
 if((c||g)&&(f||f)){
     a=2;
@@ -18,10 +31,7 @@ if ((a==10) && (b==220)) {
     x = a;
 }
 
-for(x=0;y==25;y++){
-    int x = 5;
-    int y = 4 + x * 10;
-}
+
 
 int x = 5;
 int y = 4 + x * 10;
