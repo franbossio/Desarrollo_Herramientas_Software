@@ -1,7 +1,6 @@
 int x;
 int y;
-int z;
+int z,n,b;
+int a=10,a;
+x=20;
 
-x = 5;
-
-x = y + z + 5;

@@ -12,7 +12,7 @@
             "grammar": "${file}",
             // Archivo a parsear
             // "input": "input/aritmetica.txt",
-            "input": "input/programa.txt",
+            "input": "input/simple.txt",
             // Simbolo inicial
             "startRule": "programa",
             // "startRule": "exp",
