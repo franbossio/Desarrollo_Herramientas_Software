@@ -1,7 +1,8 @@
+int funcion(int s, int g){
+    int r=s+g;
+    return r;
+}
+
 int x;
-int y;
-int z,n,b;
-
-
-x=20;
+x=10+2;
 
