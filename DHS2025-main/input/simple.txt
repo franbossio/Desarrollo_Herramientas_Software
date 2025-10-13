@@ -2,5 +2,6 @@ int x;
 int y;
 int z,n,b;
 int a=10,a;
+
 x=20;
 
