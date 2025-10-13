@@ -30,7 +30,6 @@ RETURN : 'return';
 VOID : 'void';
 
 NUMERO : DIGITO+ ;
-
 INT : 'int' ;
 DOUBLE : 'double' ;
 STRING : 'string';

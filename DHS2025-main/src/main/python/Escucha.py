@@ -41,8 +41,8 @@ class Escucha(compiladorListener):
                 print(f"Se agregó la variable '{nombre}' de tipo '{tipo}' a la tabla de símbolos")
                 
     def exitAsignacion(self, ctx:compiladorParser.AsignacionContext):
-        nombre = ctx.ID().getText()  # el identificador al que se asigna
-        valor = ctx.opal().getText() # el valor o expresión (opal es tu regla)
+        nombre = ctx.ID().getText()  
+        valor = ctx.opal().getText() 
 
         ts = TS.getTablaSimbolo()
         simbolo = ts.buscarSimbolo(nombre)
@@ -52,3 +52,9 @@ class Escucha(compiladorListener):
         else:
             simbolo.inicializado = True
             print(f"Se asignó el valor '{valor}' a la variable '{nombre}'")
+        
+   # def exitFuncion(self, ctx:compiladorParser.FuncionContext):
+        
+       # ts=TS.getTablaSimbolo()
+        
+        
