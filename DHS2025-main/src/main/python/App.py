@@ -3,7 +3,7 @@ from antlr4 import *
 from compiladorLexer  import compiladorLexer
 from compiladorParser import compiladorParser
 from Escucha import Escucha
-
+from Caminante import Caminante
 from MiErrorListener import MiErrorListener
 
 # En caso de no poder ejecutar el programa Python por
@@ -31,6 +31,8 @@ def main(argv):
     escucha = Escucha()
     parser.addParseListener(escucha)
     tree = parser.programa()
+    #visitante = Caminante()
+    #visitante.visitPrograma(tree)
     #-----------------------------------------
     errores = miError.getErrores()
     if errores:
