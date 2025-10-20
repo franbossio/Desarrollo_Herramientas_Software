@@ -4,6 +4,8 @@ from compiladorLexer  import compiladorLexer
 from compiladorParser import compiladorParser
 from Escucha import Escucha
 
+from MiErrorListener import MiErrorListener
+
 # En caso de no poder ejecutar el programa Python por
 # problemas de version (error ATNdeserializer), se
 # pueden generar los archivos a mano.
@@ -20,10 +22,28 @@ def main(argv):
     lexer = compiladorLexer(input)
     stream = CommonTokenStream(lexer)
     parser = compiladorParser(stream)
+    
+     #-----------------------------------------
+    miError = MiErrorListener()
+    parser.addErrorListener(miError)
+     #-----------------------------------------
+    print("\n--- ERRORES SEMANTICOS DETECTADOS ---")
     escucha = Escucha()
     parser.addParseListener(escucha)
     tree = parser.programa()
+    #-----------------------------------------
+    errores = miError.getErrores()
+    if errores:
+        print("\n--- ERRORES SINTÁCTICOS DETECTADOS ---")
+        for e in errores:
+            print(e)
+    else:
+        print("\nÁrbol sintáctico generado correctamente ✅")
+        #walker = ParseTreeWalker()
+        #walker.walk(escucha, tree)
+     #-----------------------------------------
     print(escucha)
+    
     # print(tree.toStringTree(recog=parser))
 
 if __name__ == '__main__':

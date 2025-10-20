@@ -1,14 +1,4 @@
-<<<<<<< HEAD
-int a;
+
 int b;
-int a,c,x;
-=======
-int funcion(int s, int g){
-    int r=s+g;
-    return r;
-}
-
-int x;
-x=10+2;
-
->>>>>>> 52bf609f251a791bfaa07b4a1e461a6d12ba0a8f
+int a;
+b = a+2;

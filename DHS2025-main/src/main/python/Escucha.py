@@ -53,8 +53,4 @@ class Escucha(compiladorListener):
             simbolo.inicializado = True
             print(f"Se asignó el valor '{valor}' a la variable '{nombre}'")
         
-   # def exitFuncion(self, ctx:compiladorParser.FuncionContext):
-        
-       # ts=TS.getTablaSimbolo()
-        
         
