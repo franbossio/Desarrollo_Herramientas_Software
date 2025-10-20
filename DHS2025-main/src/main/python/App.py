@@ -39,10 +39,6 @@ def main(argv):
         print("\n--- ERRORES SINTÁCTICOS DETECTADOS ---")
         for e in errores:
             print(e)
-    else:
-        print("\nÁrbol sintáctico generado correctamente ✅")
-        #walker = ParseTreeWalker()
-        #walker.walk(escucha, tree)
      #-----------------------------------------
     print(escucha)
     

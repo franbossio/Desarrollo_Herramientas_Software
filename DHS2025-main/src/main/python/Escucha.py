@@ -13,6 +13,7 @@ class Escucha(compiladorListener):
         print("Comienza el parsing")
 
     def exitPrograma(self, ctx:compiladorParser.ProgramaContext):
+        #aca ingresar las variables que no se asignaron 
         print("Fin del parsing")
 
     def exitDeclaracion(self, ctx:compiladorParser.DeclaracionContext):
@@ -62,12 +63,7 @@ class Escucha(compiladorListener):
             nombre = ctx.ID().getText()
             ts = TS.getTablaSimbolo()
             simbolo = ts.buscarSimbolo(nombre)
-
-            if simbolo is None:
-                print(f"❌ Error semántico: Variable '{nombre}' no declarada antes de usarla")
-            else:
-                simbolo.setUsado(True)
-                if not simbolo.getInicializado():
-                    print(f"❌ Error semántico: Variable '{nombre}' usada sin inicializar")
-                else:
-                    print(f"ℹ️ Se usó la variable '{nombre}' correctamente (inicializada)")
+            
+            simbolo.setUsado(True)
+            if not simbolo.getInicializado():
+                print(f"Error: Variable '{nombre}' usada sin inicializar")
