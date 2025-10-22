@@ -13,7 +13,13 @@ class Escucha(compiladorListener):
         print("Comienza el parsing")
 
     def exitPrograma(self, ctx:compiladorParser.ProgramaContext):
-        #aca ingresar las variables que no se asignaron 
+        ts = TS.getTablaSimbolo()
+        print("\nAnálisis semántico final:")
+        for contexto in ts.contextos:
+            for nombre, simbolo in contexto.simbolos.items():
+                if isinstance(simbolo, Variable) and not simbolo.getUsado():
+                    print(f"⚠️ Advertencia: La variable '{nombre}' fue declarada pero nunca usada")
+
         print("Fin del parsing")
 
     def exitDeclaracion(self, ctx:compiladorParser.DeclaracionContext):
@@ -51,9 +57,10 @@ class Escucha(compiladorListener):
         if simbolo is None:
             print(f"Error: Variable '{nombre}' no declarada antes de usarla")
         else:
-            simbolo.inicializado = True
+            simbolo.setInicializado(True)
+            simbolo.setUsado(True)
             print(f"Se asignó el valor '{valor}' a la variable '{nombre}'")
-        
+            
     def exitFactor(self, ctx: compiladorParser.FactorContext):
         """
         Si en la regla 'factor' aparece un ID, significa que estamos usando una variable
@@ -67,3 +74,5 @@ class Escucha(compiladorListener):
             simbolo.setUsado(True)
             if not simbolo.getInicializado():
                 print(f"Error: Variable '{nombre}' usada sin inicializar")
+
+        
