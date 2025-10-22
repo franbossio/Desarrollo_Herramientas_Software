@@ -55,11 +55,21 @@ class Escucha(compiladorListener):
         simbolo = ts.buscarSimbolo(nombre)
 
         if simbolo is None:
-            print(f"Error: Variable '{nombre}' no declarada antes de usarla")
+            print(f"❌ Error: Variable '{nombre}' no declarada antes de usarla")
+            return
+
+        tipo_destino = simbolo.getTipoDato()
+        tipo_valor = self.inferirTipo(valor, ts)
+
+        if tipo_valor is None:
+            print(f"❌ Error: No se puede determinar el tipo del valor '{valor}'")
+        elif tipo_destino != tipo_valor:
+            print(f"❌ Error semántico: Tipos incompatibles en asignación '{nombre} = {valor}' "
+                  f"({tipo_destino} ← {tipo_valor})")
         else:
             simbolo.setInicializado(True)
             simbolo.setUsado(True)
-            print(f"Se asignó el valor '{valor}' a la variable '{nombre}'")
+            print(f"✅ Asignación correcta: '{nombre}' ({tipo_destino}) = '{valor}' ({tipo_valor})")
             
     def exitFactor(self, ctx: compiladorParser.FactorContext):
         """
@@ -75,4 +85,31 @@ class Escucha(compiladorListener):
             if not simbolo.getInicializado():
                 print(f"Error: Variable '{nombre}' usada sin inicializar")
 
-        
+    def inferirTipo(self, valor, ts):
+        """
+        Dado un valor textual (por ejemplo 'x', '3', '4.2', '"hola"')
+        intenta deducir su tipo: 'int', 'float', 'string' o el tipo de una variable existente.
+        """
+        # Literal entero
+        if valor.isdigit():
+            return "int"
+
+        # Literal float (por ejemplo 3.14)
+        try:
+            float(valor)
+            if "." in valor:
+                return "float"
+        except ValueError:
+            pass
+
+        # Literal string (por ejemplo "hola" o 'hola')
+        if (valor.startswith('"') and valor.endswith('"')) or (valor.startswith("'") and valor.endswith("'")):
+            return "string"
+
+        # Si es una variable, buscamos su tipo
+        simbolo = ts.buscarSimbolo(valor)
+        if simbolo:
+            return simbolo.getTipoDato()
+
+        # Si no se puede determinar
+        return None
