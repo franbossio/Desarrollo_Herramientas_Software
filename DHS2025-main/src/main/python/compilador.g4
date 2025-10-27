@@ -106,7 +106,6 @@ tipo : INT
      | DOUBLE
      | FLOAT
      | CHAR
-     | STRING
      ;
 
 
