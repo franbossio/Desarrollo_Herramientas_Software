@@ -28,12 +28,15 @@ CONTADOR : '++';
 DESCONTAR : '--';
 RETURN : 'return';
 VOID : 'void';
+PUNTO: '.';
 
-NUMERO : DIGITO+ ;
+NUMERO : DIGITO+ 
+     | DIGITO+ PUNTO DIGITO+;
 INT : 'int' ;
 DOUBLE : 'double' ;
 STRING : 'string';
 FLOAT: 'float';
+CHAR_LITERAL : '\'' . '\'' ; 
 CHAR: 'char';
 IF :    'if' ;
 ELSE :  'else' ;
@@ -92,7 +95,7 @@ ielse : ELSE instruccion
 
 ifor : FOR PA  asignacion  opal PYC contador PC instruccion ;
 
-declaracion : tipo ID inic listavar PYC ;
+declaracion : tipo ID inic listavar PYC;
 
 listavar : COMA ID inic listavar
          |
@@ -140,6 +143,7 @@ t : MULT factor t
 
 
 factor : NUMERO
+       | CHAR_LITERAL
        | ID
        | PA opal PC
        | NOT factor    

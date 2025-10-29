@@ -3,5 +3,5 @@ float b;
 int a;
 int c;
 c = 5;
-b=5;
+a=5.3;
 
