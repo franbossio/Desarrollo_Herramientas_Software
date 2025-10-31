@@ -34,11 +34,11 @@ def main(argv):
     #visitante = Caminante()
     #visitante.visitPrograma(tree)
     #-----------------------------------------
-    errores = miError.getErrores()
-    if errores:
-        print("\n--- ERRORES SINTÁCTICOS DETECTADOS ---")
-        for e in errores:
-            print(e)
+    #errores = miError.getErrores()
+    #if errores:
+    #    print("\n--- ERRORES SINTÁCTICOS DETECTADOS ---")
+    #    for e in errores:
+    #        print(e)
      #-----------------------------------------
     print(escucha)
     

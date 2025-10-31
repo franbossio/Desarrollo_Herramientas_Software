@@ -14,11 +14,11 @@ class Escucha(compiladorListener):
 
     def exitPrograma(self, ctx:compiladorParser.ProgramaContext):
         ts = TS.getTablaSimbolo()
-        print("\nAnálisis semántico final:")
+        print("\n-------Análisis semántico final-------")
         for contexto in ts.contextos:
             for nombre, simbolo in contexto.simbolos.items():
                 if isinstance(simbolo, Variable) and not simbolo.getUsado():
-                    print(f"⚠️ Advertencia: La variable '{nombre}' fue declarada pero nunca usada")
+                    print(f"La variable '{nombre}' fue declarada pero nunca usada")
 
         print("Fin del parsing")
 
@@ -55,21 +55,21 @@ class Escucha(compiladorListener):
         simbolo = ts.buscarSimbolo(nombre)
 
         if simbolo is None:
-            print(f"❌ Error: Variable '{nombre}' no declarada antes de usarla")
+            print(f"Error: Variable '{nombre}' no declarada")
             return
 
         tipo_destino = simbolo.getTipoDato()
         tipo_valor = self.inferirTipo(valor, ts)
 
         if tipo_valor is None:
-            print(f"❌ Error: No se puede determinar el tipo del valor '{valor}'")
+            print(f"Error: No se puede determinar el tipo del valor '{valor}'")
         elif tipo_destino != tipo_valor:
-            print(f"❌ Error semántico: Tipos incompatibles en asignación '{nombre} = {valor}' "
+            print(f"Error semántico: Tipos incompatibles en asignación '{nombre} = {valor}' "
                   f"({tipo_destino} ← {tipo_valor})")
         else:
             simbolo.setInicializado(True)
             simbolo.setUsado(True)
-            print(f"✅ Asignación correcta: '{nombre}' ({tipo_destino}) = '{valor}' ({tipo_valor})")
+            #print(f"Asignación correcta: '{nombre}' ({tipo_destino}) = '{valor}' ({tipo_valor})")
             
     def exitFactor(self, ctx: compiladorParser.FactorContext):
         """
@@ -80,10 +80,11 @@ class Escucha(compiladorListener):
             nombre = ctx.ID().getText()
             ts = TS.getTablaSimbolo()
             simbolo = ts.buscarSimbolo(nombre)
-            
-            simbolo.setUsado(True)
-            if not simbolo.getInicializado():
-                print(f"Error: Variable '{nombre}' usada sin inicializar")
+
+            if simbolo is not None:
+                simbolo.setUsado(True)
+            else:
+                print(f"Error: el identificador '{nombre}' no fue declarado.")
 
     def inferirTipo(self, valor, ts):
         """

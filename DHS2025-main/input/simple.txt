@@ -1,7 +1,7 @@
-
-float b;
 int a;
-int c;
-c = 5;
-a=5.3;
-
+a=(5+3);
+int z;
+int n;
+b=5;
+a=c;
+n=23.2;
