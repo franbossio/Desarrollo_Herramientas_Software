@@ -27,19 +27,12 @@ def main(argv):
     miError = MiErrorListener()
     parser.addErrorListener(miError)
      #-----------------------------------------
-    print("\n--- ERRORES SEMANTICOS DETECTADOS ---")
     escucha = Escucha()
     parser.addParseListener(escucha)
     tree = parser.programa()
     #visitante = Caminante()
     #visitante.visitPrograma(tree)
-    #-----------------------------------------
-    #errores = miError.getErrores()
-    #if errores:
-    #    print("\n--- ERRORES SINTÁCTICOS DETECTADOS ---")
-    #    for e in errores:
-    #        print(e)
-     #-----------------------------------------
+    
     print(escucha)
     
     # print(tree.toStringTree(recog=parser))

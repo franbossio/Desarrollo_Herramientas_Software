@@ -11,10 +11,11 @@ class Escucha(compiladorListener):
         ts = TS.getTablaSimbolo()
         ts.addContexto()  # contexto global
         print("Comienza el parsing")
+        print("\n--- ANALISIS SEMANTICO ---")
 
     def exitPrograma(self, ctx:compiladorParser.ProgramaContext):
         ts = TS.getTablaSimbolo()
-        print("\n-------Análisis semántico final-------")
+        print("\n--- ADVERTENCIA ---")
         for contexto in ts.contextos:
             for nombre, simbolo in contexto.simbolos.items():
                 if isinstance(simbolo, Variable) and not simbolo.getUsado():
@@ -64,7 +65,7 @@ class Escucha(compiladorListener):
         if tipo_valor is None:
             print(f"Error: No se puede determinar el tipo del valor '{valor}'")
         elif tipo_destino != tipo_valor:
-            print(f"Error semántico: Tipos incompatibles en asignación '{nombre} = {valor}' "
+            print(f"Error: Tipos incompatibles en asignación '{nombre} = {valor}' "
                   f"({tipo_destino} ← {tipo_valor})")
         else:
             simbolo.setInicializado(True)
@@ -88,8 +89,8 @@ class Escucha(compiladorListener):
 
     def inferirTipo(self, valor, ts):
         """
-        Dado un valor textual (por ejemplo 'x', '3', '4.2', '"hola"')
-        intenta deducir su tipo: 'int', 'float', 'string' o el tipo de una variable existente.
+        Dado un valor textual (por ejemplo 'x', '3', '4.2',)
+        intenta deducir su tipo: 'int', 'float',  o el tipo de una variable existente.
         """
         # Literal entero
         if valor.isdigit():
@@ -104,8 +105,8 @@ class Escucha(compiladorListener):
             pass
 
         # Literal string (por ejemplo "hola" o 'hola')
-        if (valor.startswith('"') and valor.endswith('"')) or (valor.startswith("'") and valor.endswith("'")):
-            return "string"
+        if (valor.startswith("'") and valor.endswith("'")):
+            return "char"
 
         # Si es una variable, buscamos su tipo
         simbolo = ts.buscarSimbolo(valor)

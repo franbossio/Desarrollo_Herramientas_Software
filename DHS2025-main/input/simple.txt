@@ -1,7 +1,6 @@
 int a;
-a=(5+3);
-int z;
-int n;
-b=5;
-a=c;
-n=23.2;
+a='d';
+int b;
+b=10;
+int b;
+
