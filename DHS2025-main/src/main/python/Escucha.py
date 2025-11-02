@@ -15,19 +15,23 @@ class Escucha(compiladorListener):
 
     def exitPrograma(self, ctx:compiladorParser.ProgramaContext):
         ts = TS.getTablaSimbolo()
-        print("\n--- ADVERTENCIA ---")
+        hay_advertencias = False 
+
         for contexto in ts.contextos:
             for nombre, simbolo in contexto.simbolos.items():
                 if isinstance(simbolo, Variable) and not simbolo.getUsado():
+                    if not hay_advertencias:
+                        print("\n--- ADVERTENCIA ---")
+                        hay_advertencias = True
                     print(f"La variable '{nombre}' fue declarada pero nunca usada")
 
         print("Fin del parsing")
 
     def exitDeclaracion(self, ctx:compiladorParser.DeclaracionContext):
-        tipo = ctx.tipo().getText()
+        tipo = ctx.tipo().getText() 
 
         # el primer identificador SIEMPRE está
-        ids = [ctx.ID().getText()]
+        ids = [ctx.ID().getText()] 
 
         # ahora recolectamos los que estén en listavar (si existe)
         def recolectar_listavar(lv, acumulador):
@@ -58,6 +62,8 @@ class Escucha(compiladorListener):
         if simbolo is None:
             print(f"Error: Variable '{nombre}' no declarada")
             return
+        else:
+            print(f"Se Asigno el valor '{valor}' a la variable '{nombre}'")
 
         tipo_destino = simbolo.getTipoDato()
         tipo_valor = self.inferirTipo(valor, ts)
@@ -70,7 +76,7 @@ class Escucha(compiladorListener):
         else:
             simbolo.setInicializado(True)
             simbolo.setUsado(True)
-            #print(f"Asignación correcta: '{nombre}' ({tipo_destino}) = '{valor}' ({tipo_valor})")
+            print(f"Asignación correcta: '{nombre}' ({tipo_destino}) = '{valor}' ({tipo_valor})")
             
     def exitFactor(self, ctx: compiladorParser.FactorContext):
         """
@@ -104,7 +110,7 @@ class Escucha(compiladorListener):
         except ValueError:
             pass
 
-        # Literal string (por ejemplo "hola" o 'hola')
+        # Literal char (por ejemplo 'hola')
         if (valor.startswith("'") and valor.endswith("'")):
             return "char"
 

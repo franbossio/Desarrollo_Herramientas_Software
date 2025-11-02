@@ -1,6 +1,2 @@
-int a;
-a='d';
-int b;
-b=10;
-int b;
-
+int a
+a=10;
