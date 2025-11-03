@@ -89,3 +89,49 @@ pop y
 t1 = y + z
 push t1
 jmp t0
+
+------------------------Clase Optimizacion--------------------------------
+1- Propagaccion de constantes
+2- Eliminacion de acciones repetidas
+
+Ejemplo 
+x1=(-b+(b*b-4*a*c))/(2*a);
+x=(b+-(b*b-4*a*c))/(2*a);
+
+t0= b* b
+t1=4*a
+t2=t1*c
+t3=t0-t2
+t4=-1*b
+t5=t4+t3
+t6=2*a
+t7=t5/t6
+x1=t7
+
+t8= b* b
+t9=4*a
+t10=t9*c
+t11=t8-t2
+t12=-1*b
+t13=t12-t11
+t14=2*a
+t15=t13/t14
+x2=t15
+
+-----------Elimino lo repetido---------------
+t0= b* b
+t1=4*a
+t2=t1*c
+t3=t0-t2
+t4=-1*b
+t5=t4+t3
+t6=2*a
+t7=t5/t6
+x1=t7
+
+t10=t2*c
+t11=t0-t2 
+t13=t4-t11
+t15=t13/t6
+x2=t15
+
