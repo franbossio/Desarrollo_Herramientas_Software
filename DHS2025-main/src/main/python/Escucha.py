@@ -26,6 +26,7 @@ class Escucha(compiladorListener):
                     print(f"La variable '{nombre}' fue declarada pero nunca usada")
 
         print("Fin del parsing")
+        ts.contextos.clear()
 
     def exitDeclaracion(self, ctx:compiladorParser.DeclaracionContext):
         tipo = ctx.tipo().getText() 

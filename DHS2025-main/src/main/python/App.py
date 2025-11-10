@@ -30,13 +30,12 @@ def main(argv):
     escucha = Escucha()
     parser.addParseListener(escucha)
     tree = parser.programa()
-    visitante = Caminante()
-    visitante.visitPrograma(tree)
+    #visitante = Caminante()
+    #visitante.visitPrograma(tree)
     
     print(escucha)
-    #print("--- CÓDIGO INTERMEDIO ---")
-    print(visitante.getCodigo())
-    print(tree.toStringTree(recog=parser))
+    
+    # print(tree.toStringTree(recog=parser))
 
 if __name__ == '__main__':
     main(sys.argv)
