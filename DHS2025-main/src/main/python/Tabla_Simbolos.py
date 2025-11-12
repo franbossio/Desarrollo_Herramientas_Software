@@ -47,7 +47,7 @@ class Funcion(ID):
 class Contexto:
     def __init__(self):
         # Diccionario {nombre: ID}
-        self.simbolos = {}
+        self.simbolos = {}#hacer que sea dic
 
     def addSimbolo(self, id_obj):
         self.simbolos[id_obj.getNombre()] = id_obj
@@ -60,7 +60,7 @@ class TS:
     _instance = None
 
     def __init__(self):
-        self.contextos = []
+        self.contextos = [] #tiene que existir contexto global
 
     @staticmethod
     def getTablaSimbolo():
@@ -75,7 +75,7 @@ class TS:
         if self.contextos:
             self.contextos.pop()
 
-    def addSimbolo(self, simbolo):
+    def addSimbolo(self, simbolo):#siempre hay un contexxto, no hace falta
         if self.contextos:
             self.contextos[-1].addSimbolo(simbolo)
 

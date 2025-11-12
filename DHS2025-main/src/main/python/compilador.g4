@@ -65,10 +65,10 @@ instruccion : asignacion
             | llamada
             ;
 
-funcion : tipo ID PA tipo ID listaDeclaracion PC PYC
+funcion : tipo ID PA tipo ID listaDeclaracion PC PYC //mantener esto
           | tipo ID PA tipo ID listaDeclaracion PC LLA instrucciones RETURN ID PYC LLC
           | VOID ID PA tipo ID listaDeclaracion PC PYC
-          | VOID ID PA tipo ID listaDeclaracion PC instruccion; 
+          | VOID ID PA tipo ID listaDeclaracion PC instruccion; //mejorar las alternativas de funciones, por ejemplo poner una regla llamada prototipoFuncion
 
  
 listaDeclaracion: COMA tipo ID listaDeclaracion
@@ -76,7 +76,7 @@ listaDeclaracion: COMA tipo ID listaDeclaracion
                ;
 
 llamada :  ID PA opal listaLlamada PC PYC
-          | tipo ID ASIG ID PA opal listaLlamada PC PYC
+          | tipo ID ASIG ID PA opal listaLlamada PC PYC //esto es asignacion, va otra regla
           | ID ASIG ID PA opal listaLlamada PC PYC;
 
 listaLlamada : COMA opal listaLlamada
@@ -93,7 +93,7 @@ ielse : ELSE instruccion
       |
       ;
 
-ifor : FOR PA  asignacion  opal PYC contador PC instruccion ;
+ifor : FOR PA  asignacion  opal PYC contador PC instruccion ;//quitar asignacion porque se puede poner vacion y asignacion no lo permite
 
 declaracion : tipo ID inic listavar PYC;
 
